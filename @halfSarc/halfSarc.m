@@ -16,8 +16,8 @@ classdef halfSarc < handle
         Ca = 10^(-6.5);     % Ca concentration (in M)
 
         % DISTRIBUTION BIN PARAMETERS %
-        bin_min = -50;      % min x value for myosin distributions in nm
-        bin_max = 50;       % max x value for myosin distributions in nm
+        bin_min = -20;      % min x value for myosin distributions in nm
+        bin_max = 20;       % max x value for myosin distributions in nm
         bin_width = 0.5;    % width of bins for myosin distributions in nm
         x_bins;             % array of x_bin values
         no_of_x_bins;       % no of x_bins
@@ -61,7 +61,7 @@ classdef halfSarc < handle
                             % cross-sectional area of 1 m^2
                             
         hsl_slack = 1300;   % slack length of half-sarcomere in nm
-        k_passive = 1500;   % passive stiffness of half-sarcomere in
+        k_passive = 0;   % passive stiffness of half-sarcomere in
                             % N m^-2 nm^-1
 
     end
@@ -90,13 +90,13 @@ classdef halfSarc < handle
 
             obj.g = zeros(size(obj.x_bins)); %Preallocate
             obj.g(obj.x_bins<-8) = obj.g_parameters(1) + ...
-                 abs(obj.g_parameters(2)*1e2*((obj.x_bins(obj.x_bins<-8)+8).^3));
+                 abs(obj.g_parameters(2)*6e1*((obj.x_bins(obj.x_bins<-8)+8).^3));
 %             obj.g(obj.x_bins<=-15) = 1000;
             
             obj.g(obj.x_bins>=-3) = obj.g_parameters(1) + ...
                  obj.g_parameters(2)*5e1*((obj.x_bins(obj.x_bins>=-3)+3).^2);
              
-             obj.g = obj.g + 0.2;
+             obj.g = obj.g + 1.0;
             
             % Limit max values
             obj.f(obj.f>obj.max_rate) = obj.max_rate;

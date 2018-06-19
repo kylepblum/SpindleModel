@@ -13,7 +13,7 @@ Fd(Fd<0) = 0; %threshold
 Y = diff(Fd)./diff(t); %yank
 Y(Y<0) = 0; %threshold
 Y(end+1) = Y(end); %make Y same length as F
-Y(Fd<0.0e5) = 0;
+Y(Fd<5e3) = 0;
 
 
 rs = Fs*kFs; %static component
