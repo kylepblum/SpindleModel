@@ -89,14 +89,14 @@ classdef halfSarc < handle
 
 
             obj.g = zeros(size(obj.x_bins)); %Preallocate
-            obj.g(obj.x_bins<-3) = obj.g_parameters(1) + ...
-                 abs(obj.g_parameters(2)*3e0*((obj.x_bins(obj.x_bins<-3)+3).^3));
-            obj.g(obj.x_bins<=-15) = 1000;
+            obj.g(obj.x_bins<-8) = obj.g_parameters(1) + ...
+                 abs(obj.g_parameters(2)*1e2*((obj.x_bins(obj.x_bins<-8)+8).^3));
+%             obj.g(obj.x_bins<=-15) = 1000;
             
             obj.g(obj.x_bins>=-3) = obj.g_parameters(1) + ...
                  obj.g_parameters(2)*5e1*((obj.x_bins(obj.x_bins>=-3)+3).^2);
              
-             obj.g = obj.g + 0.0;
+             obj.g = obj.g + 0.2;
             
             % Limit max values
             obj.f(obj.f>obj.max_rate) = obj.max_rate;

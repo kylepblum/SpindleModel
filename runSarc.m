@@ -1,4 +1,4 @@
-%this is an edit to test git
+
     
     %% DI
     clear,clc
@@ -44,7 +44,7 @@
 %     delta_Ca = zeros(numSims,numel(t)); % change in [Ca] for all sims
     delta_f_activated = zeros(numSims,numel(t));
     strDur = 600; % duration of stretch period
-    lsf = 0.25; % length scaling factor to account for pinnation & elastic attachment of fibers
+    lsf = 0.5; % length scaling factor to account for pinnation & elastic attachment of fibers
     
     for a = 1:numSims
         for i = 1:numel(t)
