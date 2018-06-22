@@ -3,7 +3,8 @@ time_step = t(2)-t(1);
 CHECK_SLACK = 1;  
 
 % Make a half-sarcomere
-hs = halfSarc();
+% hs = halfSarc();
+hs = halfSarcStatic();
 
 % Loop through the time-steps
 for a = 1
