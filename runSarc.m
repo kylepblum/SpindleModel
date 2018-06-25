@@ -6,12 +6,12 @@
     time_step = 0.001; %Temporal precision
     t = -7:time_step:6; % Time vector
     pertStart = 7000;
-    numSims = 1;       % Number of simulations to run in parallel
+    numSims = 4;       % Number of simulations to run in parallel
     delta_cdl = zeros(numSims,numel(t)); % change in command length for all sims
 %     delta_Ca = zeros(numSims,numel(t)); % change in [Ca] for all sims
     delta_f_activated = zeros(numSims,numel(t));
-    strDur = 750; % duration of stretch period
-    lsf = cos(pi/6); % length scaling factor to account for pinnation & elastic attachment of fibers
+    strDur = 600; % duration of stretch period
+    lsf = 0.8; % length scaling factor to account for pinnation & elastic attachment of fibers
     
     for a = 1:numSims
         for i = 1:numel(t)
@@ -44,7 +44,7 @@
 %     delta_Ca = zeros(numSims,numel(t)); % change in [Ca] for all sims
     delta_f_activated = zeros(numSims,numel(t));
     strDur = 600; % duration of stretch period
-    lsf = 0.6; % length scaling factor to account for pinnation & elastic attachment of fibers
+    lsf = 0.8; % length scaling factor to account for pinnation & elastic attachment of fibers
     
     for a = 1:numSims
         for i = 1:numel(t)
@@ -67,7 +67,8 @@
     end
     
     parfor a = 1:numSims
-        [hs(a),data(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
+        [hsD(a),dataD(a),hsS(a),dataS(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
+        
         disp(['Done with simulation number ' num2str(a)])
     end
     
@@ -84,7 +85,7 @@
 %     delta_Ca = zeros(numSims,numel(t)); % change in [Ca] for all sims
     delta_f_activated = zeros(numSims,numel(t));
     strDur = 600; % duration of stretch period
-    lsf = cos(pi/6); % length scaling factor to account for pinnation & elastic attachment of fibers
+    lsf = 0.8; % length scaling factor to account for pinnation & elastic attachment of fibers
     
     amps = [0.0 0.01 0.05 0.1 0.2 0.3 0.5 1];% 1 = 5.46% stretch (0.1182/ms for 600ms)
     
@@ -127,7 +128,7 @@
 %     delta_Ca = zeros(numSims,numel(t)); % change in [Ca] for all sims
     delta_f_activated = zeros(numSims,numel(t));
     strDur = 600; % duration of stretch period
-    lsf = cos(pi/6); % length scaling factor to account for pinnation & elastic attachment of fibers
+    lsf = 0.8; % length scaling factor to account for pinnation & elastic attachment of fibers
     
 %     Ca_levels = [10^(-7) 10^(-6.5) 10^(-6.0) 10^(-4.5) 10^(-4.5)] - 10^(-6.5);
     
@@ -220,3 +221,7 @@
     end
     
     beep; toc;
+
+    %% PRTS
+    
+    %% Chirp

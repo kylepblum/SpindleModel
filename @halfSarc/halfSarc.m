@@ -60,8 +60,8 @@ classdef halfSarc < handle
                             % number of cbs in a half-sarcomere with a
                             % cross-sectional area of 1 m^2
                             
-        hsl_slack = 1300;   % slack length of half-sarcomere in nm
-        k_passive = 0;   % passive stiffness of half-sarcomere in
+        hsl_slack = 1050;   % slack length of half-sarcomere in nm
+        k_passive = 100;   % passive stiffness of half-sarcomere in
                             % N m^-2 nm^-1
 
     end
@@ -89,14 +89,14 @@ classdef halfSarc < handle
 
 
             obj.g = zeros(size(obj.x_bins)); %Preallocate
-            obj.g(obj.x_bins<-8) = obj.g_parameters(1) + ...
-                 abs(obj.g_parameters(2)*6e1*((obj.x_bins(obj.x_bins<-8)+8).^3));
+            obj.g(obj.x_bins<-6) = obj.g_parameters(1) + ...
+                 abs(obj.g_parameters(2)*6e1*((obj.x_bins(obj.x_bins<-6)+6).^3));
 %             obj.g(obj.x_bins<=-15) = 1000;
             
             obj.g(obj.x_bins>=-3) = obj.g_parameters(1) + ...
-                 obj.g_parameters(2)*5e1*((obj.x_bins(obj.x_bins>=-3)+3).^2);
+                 obj.g_parameters(2)*5e1*((obj.x_bins(obj.x_bins>=-3)+3).^3);
              
-             obj.g = obj.g + 1.0;
+             obj.g = obj.g + 3;
             
             % Limit max values
             obj.f(obj.f>obj.max_rate) = obj.max_rate;
