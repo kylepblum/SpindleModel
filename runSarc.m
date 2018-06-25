@@ -26,7 +26,7 @@
     end
     
     parfor a = 1:numSims
-        [hs(a),data(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
+        [hsD(a),dataD(a),hsS(a),dataS(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
         disp(['Done with simulation number ' num2str(a)])
     end
     
@@ -80,7 +80,7 @@
     time_step = 0.001; %Temporal precision
     t = -5:time_step:5; % Time vector
     pertStart = 5e3;
-    numSims = 8;       % Number of simulations to run in parallel
+    numSims = 4;       % Number of simulations to run in parallel
     delta_cdl = zeros(numSims,numel(t)); % change in command length for all sims
 %     delta_Ca = zeros(numSims,numel(t)); % change in [Ca] for all sims
     delta_f_activated = zeros(numSims,numel(t));
@@ -110,7 +110,7 @@
     end
     
     parfor a = 1:numSims
-        [hs(a),data(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
+        [hsD(a),dataD(a),hsS(a),dataS(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
         disp(['Done with simulation number ' num2str(a)])
     end
     
@@ -145,7 +145,7 @@
     end
     
     parfor a = 1:numSims
-        [hs(a),data(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
+        [hsD(a),dataD(a),hsS(a),dataS(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
         disp(['Done with simulation number ' num2str(a)])
     end
     
@@ -176,7 +176,7 @@
     end
     
     parfor a = 1:numSims
-        [hs(a),data(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
+        [hsD(a),dataD(a),hsS(a),dataS(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
         disp(['Done with simulation number ' num2str(a)])
     end
     
@@ -216,7 +216,7 @@
     end
     
     parfor a = 1:numSims
-        [hs(a),data(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
+        [hsD(a),dataD(a),hsS(a),dataS(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
         disp(['Done with simulation number ' num2str(a)])
     end
     
