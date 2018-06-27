@@ -80,14 +80,14 @@
     time_step = 0.001; %Temporal precision
     t = -5:time_step:5; % Time vector
     pertStart = 5e3;
-    numSims = 4;       % Number of simulations to run in parallel
+    numSims = 16;       % Number of simulations to run in parallel
     delta_cdl = zeros(numSims,numel(t)); % change in command length for all sims
 %     delta_Ca = zeros(numSims,numel(t)); % change in [Ca] for all sims
     delta_f_activated = zeros(numSims,numel(t));
     strDur = 600; % duration of stretch period
     lsf = 0.8; % length scaling factor to account for pinnation & elastic attachment of fibers
     
-    amps = [0.0 0.01 0.05 0.1 0.2 0.3 0.5 1];% 1 = 5.46% stretch (0.1182/ms for 600ms)
+    amps = 0.0:0.05:numSims*0.05 ;% 1 = 5.46% stretch (0.1182/ms for 600ms)
     
     for a = 1:numSims
         for i = 1:numel(t)

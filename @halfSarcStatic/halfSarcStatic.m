@@ -90,7 +90,7 @@ classdef halfSarcStatic < handle
 
             obj.g = zeros(size(obj.x_bins)); %Preallocate
             obj.g(obj.x_bins<-6) = obj.g_parameters(1) + ...
-                 abs(obj.g_parameters(2)*2e1*((obj.x_bins(obj.x_bins<-6)+6).^3));
+                 abs(obj.g_parameters(2)*4e1*((obj.x_bins(obj.x_bins<-6)+6).^3));
 %             obj.g(obj.x_bins<=-15) = 1000;
             
             obj.g(obj.x_bins>=-3) = obj.g_parameters(1) + ...
