@@ -31,7 +31,7 @@ classdef halfSarc < handle
         a_off = 20;          % off_rate (in s^-1) for binding sites
         
         % PARAMETERS RELATED TO FORWARD AND REVERSE RATES %
-        f_parameters = 1e3;
+        f_parameters = 2e2;
         g_parameters = [0.3 0.01 4000 50];
                             
 
@@ -90,11 +90,11 @@ classdef halfSarc < handle
 
             obj.g = zeros(size(obj.x_bins)); %Preallocate
             obj.g(obj.x_bins<-6) = obj.g_parameters(1) + ...
-                 abs(obj.g_parameters(2)*6e1*((obj.x_bins(obj.x_bins<-6)+6).^3));
+                 abs(obj.g_parameters(2)*2e1*((obj.x_bins(obj.x_bins<-6)+6).^3));
 %             obj.g(obj.x_bins<=-15) = 1000;
             
             obj.g(obj.x_bins>=-3) = obj.g_parameters(1) + ...
-                 obj.g_parameters(2)*5e1*((obj.x_bins(obj.x_bins>=-3)+3).^3);
+                 obj.g_parameters(2)*1e1*((obj.x_bins(obj.x_bins>=-3)+3).^3);
              
              obj.g = obj.g + 3;
             

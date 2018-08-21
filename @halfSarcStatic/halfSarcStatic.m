@@ -31,7 +31,7 @@ classdef halfSarcStatic < handle
         a_off = 20;          % off_rate (in s^-1) for binding sites
         
         % PARAMETERS RELATED TO FORWARD AND REVERSE RATES %
-        f_parameters = 1e3;
+        f_parameters = 2.5e1;
         g_parameters = [0.3 0.01 4000 50];
                             
 
@@ -60,8 +60,8 @@ classdef halfSarcStatic < handle
                             % number of cbs in a half-sarcomere with a
                             % cross-sectional area of 1 m^2
                             
-        hsl_slack = 1050;   % slack length of half-sarcomere in nm
-        k_passive = 100;   % passive stiffness of half-sarcomere in
+        hsl_slack = 1200;   % slack length of half-sarcomere in nm
+        k_passive = 250;   % passive stiffness of half-sarcomere in
                             % N m^-2 nm^-1
 
     end
@@ -90,13 +90,13 @@ classdef halfSarcStatic < handle
 
             obj.g = zeros(size(obj.x_bins)); %Preallocate
             obj.g(obj.x_bins<-6) = obj.g_parameters(1) + ...
-                 abs(obj.g_parameters(2)*4e1*((obj.x_bins(obj.x_bins<-6)+6).^3));
+                 abs(obj.g_parameters(2)*2e1*((obj.x_bins(obj.x_bins<-6)+6).^3));
 %             obj.g(obj.x_bins<=-15) = 1000;
             
             obj.g(obj.x_bins>=-3) = obj.g_parameters(1) + ...
-                 obj.g_parameters(2)*3e1*((obj.x_bins(obj.x_bins>=-3)+3).^3);
+                 obj.g_parameters(2)*5e1*((obj.x_bins(obj.x_bins>=-3)+3).^3);
              
-             obj.g = obj.g + 2;
+             obj.g = obj.g + 3;
             
             % Limit max values
             obj.f(obj.f>obj.max_rate) = obj.max_rate;

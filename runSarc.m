@@ -1,3 +1,49 @@
+%% Single set of Triangles & RH
+    clear,clc
+    tic
+    time_step = 0.001; %Temporal precision
+    t = -5:time_step:25; % Time vector
+    pertStart = 5000;
+    RHStart = 18000;
+    numSims = 1;       % Number of simulations to run in parallel
+    delta_cdl = zeros(numSims,numel(t)); % change in command length for all sims
+%     delta_Ca = zeros(numSims,numel(t)); % change in [Ca] for all sims
+    delta_f_activated = zeros(numSims,numel(t));
+    strDur = 600; % duration of stretch period
+    lsf = 0.8; % length scaling factor to account for pinnation & elastic attachment of fibers
+    
+    for a = 1:numSims
+        for i = 1:numel(t)
+            
+            if i == 1
+                delta_f_activated(a,i) = 0.3;
+            elseif i > pertStart && i < pertStart + strDur
+                delta_cdl(a,i) = 0.1182*lsf;
+            elseif i > pertStart + strDur && i < pertStart + 2*(strDur)
+                delta_cdl(a,i) = -0.1182*lsf;
+            elseif i > pertStart + 2*(strDur) && i < pertStart + 3*(strDur)
+                delta_cdl(a,i) = 0.1182*lsf;
+            elseif i > pertStart + 3*(strDur) && i < pertStart + 4*(strDur)
+                delta_cdl(a,i) = -0.1182*lsf;
+            elseif i > pertStart + 4*(strDur) + 1e3*(a-1) && i < pertStart + 5*(strDur) + 1e3*(a-1)
+                delta_cdl(a,i) = 0.1182*lsf;
+            elseif i > pertStart + 5*(strDur) + 1e3*(a-1) && i < pertStart + 6*(strDur) + 1e3*(a-1)
+                delta_cdl(a,i) = -0.1182*lsf;
+            elseif i > RHStart && i < RHStart + strDur/a
+                delta_cdl(a,i) = 0.1182*a*lsf;
+            elseif i > RHStart + strDur/a + 1000 && i < RHStart + 2*(strDur/a) + 1000 
+                delta_cdl(a,i) = -0.1182*a*lsf;
+            end
+        end
+    end
+    
+    parfor a = 1:numSims
+        [hsD(a),dataD(a),hsS(a),dataS(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
+        disp(['Done with simulation number ' num2str(a)])
+    end
+    
+    beep; toc;
+
 
     
     %% DI
@@ -6,7 +52,7 @@
     time_step = 0.001; %Temporal precision
     t = -7:time_step:6; % Time vector
     pertStart = 7000;
-    numSims = 4;       % Number of simulations to run in parallel
+    numSims = 10;       % Number of simulations to run in parallel
     delta_cdl = zeros(numSims,numel(t)); % change in command length for all sims
 %     delta_Ca = zeros(numSims,numel(t)); % change in [Ca] for all sims
     delta_f_activated = zeros(numSims,numel(t));
@@ -39,7 +85,7 @@
     time_step = 0.001; %Temporal precision
     t = -5:time_step:20; % Time vector
     pertStart = 5e3;
-    numSims = 4;       % Number of simulations to run in parallel
+    numSims = 16;       % Number of simulations to run in parallel
     delta_cdl = zeros(numSims,numel(t)); % change in command length for all sims
 %     delta_Ca = zeros(numSims,numel(t)); % change in [Ca] for all sims
     delta_f_activated = zeros(numSims,numel(t));
@@ -58,9 +104,9 @@
                 delta_cdl(a,i) = 0.1182*lsf;
             elseif i > pertStart + 3*(strDur) && i < pertStart + 4*(strDur)
                 delta_cdl(a,i) = -0.1182*lsf;
-            elseif i > pertStart + 4*(strDur) + 1e3*(a-1) && i < pertStart + 5*(strDur) + 1e3*(a-1)
+            elseif i > pertStart + 4*(strDur) + 5e2*(a-1) && i < pertStart + 5*(strDur) + 5e2*(a-1)
                 delta_cdl(a,i) = 0.1182*lsf;
-            elseif i > pertStart + 5*(strDur) + 1e3*(a-1) && i < pertStart + 6*(strDur) + 1e3*(a-1)
+            elseif i > pertStart + 5*(strDur) + 5e2*(a-1) && i < pertStart + 6*(strDur) + 5e2*(a-1)
                 delta_cdl(a,i) = -0.1182*lsf;
             end
         end
@@ -80,7 +126,7 @@
     time_step = 0.001; %Temporal precision
     t = -5:time_step:5; % Time vector
     pertStart = 5e3;
-    numSims = 16;       % Number of simulations to run in parallel
+    numSims = 20;       % Number of simulations to run in parallel
     delta_cdl = zeros(numSims,numel(t)); % change in command length for all sims
 %     delta_Ca = zeros(numSims,numel(t)); % change in [Ca] for all sims
     delta_f_activated = zeros(numSims,numel(t));
@@ -123,7 +169,7 @@
     time_step = 0.001; %Temporal precision
     t = -5:time_step:5; % Time vector
     pertStart = 5e3;
-    numSims = 10;       % Number of simulations to run in parallel
+    numSims = 8;       % Number of simulations to run in parallel
     delta_cdl = zeros(numSims,numel(t)); % change in command length for all sims
 %     delta_Ca = zeros(numSims,numel(t)); % change in [Ca] for all sims
     delta_f_activated = zeros(numSims,numel(t));
@@ -136,7 +182,7 @@
         for i = 1:numel(t)
             if i == 1
 %                 delta_Ca(a,i) = Ca_levels(a);
-                delta_f_activated(a,i) = 0.1*(a);
+                delta_f_activated(a,i) = 0.1*(a)+0.1;
             elseif i > pertStart && i < pertStart + strDur
                 delta_cdl(a,i) = 0.1182*lsf;
 %                 delta_Ca(a,i) = 0;
@@ -225,3 +271,75 @@
     %% PRTS
     
     %% Chirp
+    clear,clc
+    tic
+    time_step = 0.001; %Temporal precision
+    t = 0:time_step:40; % Time vector
+    pertStart = 5e3;
+    numSims = 1;       % Number of simulations to run in parallel
+    delta_cdl = zeros(numSims,numel(t)); % change in command length for all sims
+%     delta_Ca = zeros(numSims,numel(t)); % change in [Ca] for all sims
+    delta_f_activated = zeros(numSims,numel(t));
+    strDur = 3e4; % duration of activation period
+    lsf = 0.8; % length scaling factor to account for pinnation & elastic attachment of fibers
+    
+    L = 0.5*sin(0.167*pi*(0:0.001:30).^2);
+    deltaL = diff(L);
+    
+    deltaL = [zeros(1,5000) deltaL zeros(1,5001)];
+    
+    for a = 1:numSims
+        for i = 1:numel(t)
+            if i == 1
+                delta_f_activated(a,i) = 0.3;
+            elseif i > pertStart && i < pertStart + strDur
+                delta_cdl(a,i) = deltaL(i);
+                
+            end
+        end
+    end
+    
+    parfor a = 1:numSims
+        [hsD(a),dataD(a),hsS(a),dataS(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
+        disp(['Done with simulation number ' num2str(a)])
+    end
+    
+    beep; toc;
+
+    %% Isometric
+    
+    %% Alpha-gamma ramp
+    
+    clear,clc
+    tic
+    time_step = 0.001; %Temporal precision
+    t = -5:time_step:6; % Time vector
+    pertStart = 5e3;
+    numSims = 4;       % Number of simulations to run in parallel
+    delta_cdl = zeros(numSims,numel(t)); % change in command length for all sims
+%     delta_Ca = zeros(numSims,numel(t)); % change in [Ca] for all sims
+    delta_f_activated = zeros(numSims,numel(t));
+    strDur = 4000; % duration of activation period
+    lsf = 0.8; % length scaling factor to account for pinnation & elastic attachment of fibers
+    
+    for a = 1:numSims
+        for i = 1:numel(t)
+            if i == 1
+                delta_f_activated(a,i) = 0.3;
+            elseif i > pertStart && i < pertStart + strDur
+                delta_cdl(a,i) = -0.01*a*lsf;
+                delta_f_activated(a,i) = 0.001;
+            elseif i == pertStart+strDur + 10
+                delta_f_activated(a,i) = -0.001*strDur;
+            end
+        end
+    end
+    
+    parfor a = 1:numSims
+        [hsD(a),dataD(a),hsS(a),dataS(a)] = sarcSimDriver(t,delta_f_activated(a,:),delta_cdl(a,:));
+        disp(['Done with simulation number ' num2str(a)])
+    end
+    
+    beep; toc;
+
+    
