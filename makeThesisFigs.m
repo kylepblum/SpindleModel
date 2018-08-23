@@ -14,7 +14,7 @@ end
 
 
 %% Spindle model - General
-load(['data' filesep 'DI 2018-05-25.mat']);
+load(['data' filesep 'triAndRamp 2018-08-21.mat']);
 time = data(3).t;
 dataY = data(3);
 dataF = data(3);
